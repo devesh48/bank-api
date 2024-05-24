@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import { configDotenv } from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import path from 'path'
 
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
@@ -16,6 +17,14 @@ mongoose.connect(process.env.Mongo).then(() => {
 });
 
 const app = express();
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, '/bank-project/dist')));
+
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'bank-project', 'dist', 'index.html'));
+})
 
 // Apply CORS middleware
 app.use(cors({

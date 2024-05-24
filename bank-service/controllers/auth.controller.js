@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 
 export const signUp = async (req, res, next) => {
     try {
-        console.log(req.body);
         const { username, email, password } = req.body;
         const hashedPwd = bcryptjs.hashSync(password, 10);
         const newUser = new User({ username: username, email: email, password: hashedPwd });
@@ -21,7 +20,6 @@ export const signUp = async (req, res, next) => {
 
 export const signIn = async (req, res, next) => {
     try {
-        console.log(req.body);
         const { email, password } = req.body;
         const validUser = await User.findOne({ email: email });
         if (!validUser) {
@@ -66,3 +64,7 @@ export const googleAuth = async (req, res, next) => {
         next(err);
     }
 };
+
+export const signout = (req, res) => {
+    res.clearCookie('access_token').status(200).json('Signout success!');
+  };

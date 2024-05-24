@@ -5,7 +5,7 @@ export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
     console.log(req.cookies.access_token)
 
-    // if (!token) return res.status(401).json("Token Expired, Please Login Again!!!");
+    // // if (!token) return res.status(401).json("Token Expired, Please Login Again!!!");
     if (!token) return next(errorHandler(401,"Token Expired, Please Login Again!!!"));
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
@@ -14,4 +14,6 @@ export const verifyToken = (req, res, next) => {
         req.user = user;
         next();
     })
+    // req.user=user;
+    // next();
 }
