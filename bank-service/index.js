@@ -27,10 +27,7 @@ app.get('*', (req,res) => {
 })
 
 // Apply CORS middleware
-app.use(cors({
-  origin: 'http://localhost:3000', 
-  credentials: true// Allow only this origin
-}));
+app.use(cors());
 
 // Use JSON parsing middleware
 app.use(express.json());
