@@ -19,7 +19,8 @@ const app = express();
 
 // Apply CORS middleware
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow only this origin
+  origin: 'http://localhost:3000', 
+  credentials: true// Allow only this origin
 }));
 
 // Use JSON parsing middleware

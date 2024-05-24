@@ -34,6 +34,7 @@ export const signIn = async (req, res, next) => {
         const expiryDate = new Date(Date.now() + 36000000);
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
         const { password: hashedPwd, ...rest } = validUser._doc;
+        console.log('setting up the cookie')
         res.cookie('access_token', token, { httpOnly: true, expires: expiryDate }).status(200).json(rest);
     } catch (err) {
         next(err);
@@ -45,9 +46,12 @@ export const googleAuth = async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
         if (user) {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            console.log(process.env.JWT_SECRET)
+            console.log('we are here')
             const { password: hashedPwd, ...rest } = user._doc;
             const expiryDate = new Date(Date.now() + 36000000);
-            res.cookie('access_token', token, { httpOnly: true, expires: expiryDate }).status(200).json(rest);
+            console.log(expiryDate,rest,token)
+            res.cookie('access_token', token, { httpOnly: true, expires: expiryDate, sameSite: 'None', secure: false}).status(200).json(rest);
         } else {
             const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
             const hashedPwd = bcryptjs.hashSync(generatedPassword, 10);
