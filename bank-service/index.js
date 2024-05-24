@@ -20,10 +20,10 @@ const app = express();
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, '/bank-project/dist')));
+app.use(express.static(path.join(__dirname, '/bank-project/build')));
 
 app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname, 'bank-project', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'bank-project', 'build', 'index.html'));
 })
 
 // Apply CORS middleware

@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon bank-service/index.js",
     "start": "node bank-service/index.js",
-    "build": "npm install && install --prefix bank-project && npm run build --prefix bank-project"
+    "build": "npm install && npm install --prefix bank-project && npm run build --prefix bank-project"
   },
   "repository": {
     "type": "git",
